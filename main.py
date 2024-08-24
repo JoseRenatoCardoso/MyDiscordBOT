@@ -1,21 +1,27 @@
 import discord
 import os
+from discord.ext import commands
 
+# Set up intents
 intents = discord.Intents.default()
-intents.messages = True  # Enable the intent to receive messages
+intents.messages = True
+intents.members = True
 
-client = discord.Client(intents=intents)
+# Create a Bot that uses a '!' prefix
+MyBOT = commands.Bot(command_prefix='!', intents=intents)
 
-@client.event
-async def on_ready(): #Registers that the BOT is online
-    print('Hey, {0.user} just appeared'.format(client))
+@MyBOT.event
+async def on_ready():
+    # Print a message when the bot is online
+    print(f'Hey, {MyBOT.user} just appeared')
 
-
-@client.event
-async def on_message(message): #Basic message confirmation
-    if message.author == client.user:
+@MyBOT.event
+async def on_message(message):
+    # Bot does not respond to its own messages
+    if message.author == MyBOT.user:
         return
+    # Respond to all messages
     await message.channel.send('I received your message!')
 
-
-client.run(os.getenv('DTOKEN'))
+# Run the bot
+MyBOT.run(os.getenv('DTOKEN'))
