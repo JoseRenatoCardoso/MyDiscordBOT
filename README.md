@@ -1,2 +1,2 @@
 # MyDiscordBOT
-This is a begineer project of a discord BOT
+This is a beginner project of a discord BOT
